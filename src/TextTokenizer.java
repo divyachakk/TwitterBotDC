@@ -9,14 +9,14 @@ import java.util.*;
 public class TextTokenizer {
 
 	/**
-	  * @param aSearchText is non-null, but may have no content,
+	  * @param sentence is non-null, but may have no content,
 	  * and represents what the user has input in a search box.
 	  */
-	  public TextTokenizer(String aSearchText) {
-	    if (aSearchText == null) {
+	  public TextTokenizer(String sentence) {
+	    if (sentence == null) {
 	      throw new IllegalArgumentException("Search Text cannot be null.");
 	    } 
-	    fSearchText = aSearchText;
+	    fSearchText = sentence;
 	  }
 
 	/**
@@ -33,14 +33,14 @@ public class TextTokenizer {
 	public ArrayList<String> parseSearchText() {
 		ArrayList<String> result = new ArrayList<>();
 
-		boolean returnTokens = true;
+		//boolean returnTokens = true;
 		String currentDelims = fWHITESPACE_AND_QUOTES_PUNCTUATION;
-		StringTokenizer parser = new StringTokenizer(fSearchText, currentDelims, true);
+		StringTokenizer parser = new StringTokenizer(fSearchText, ",", false );
 
 		String token = null;
 		while (parser.hasMoreTokens()) {
-			token = parser.nextToken(currentDelims);
-			if (!isWhitespace(token) && !fQUOTES_ONLY.contains(token)) {// && !(isHash(token))) {
+			token = parser.nextToken(); //currentDelims
+			if (!isWhitespace(token) && !fWHITESPACE_AND_QUOTES_PUNCTUATION.contains(token) ) {// && !(isHash(token))) {
 				addNonTrivialWordToResult(token, result); //totally misnomer bc this adds ALL words now
 			} 
 		}

@@ -65,13 +65,13 @@ public class MarkovGenerator<String> extends ProbabilityGenerator<String> {
 
 
 		}
-
+		
 					
 	}
 	
 
 	void printTransitionTable(){
-		System.out.println(alphabet);//print out the alphabet arraylist before going through transition table/row arraylists
+		//System.out.println(alphabet);//print out the alphabet arraylist before going through transition table/row arraylists
 
 		 for (int j = 0; j < transitionTable.size(); j++) { //iterating through the transition table
 			 ArrayList<Integer> sumrow = transitionTable.get(j); //initializing the arraylist sumrow to trnasitiontable.get(j)
@@ -81,12 +81,12 @@ public class MarkovGenerator<String> extends ProbabilityGenerator<String> {
 			  }
 			  System.out.print(alphabet.get(j)); //printing out alphabet from iterating through transition table values
 				  for (int o = 0; o <sumrow.size(); o++) { //iterating through sumrow values again
-					  if (sum == 0) { //if the value of sum = 0, print out "0.0" for the space
-						  System.out.print(" 0.0 ");
-					  }
-					  else { //if sum doesn't equal 0, print out the values in the sumrow one by one divided by the value of sum
-					  System.out.print(" " + sumrow.get(o)/sum + " ");
-					  }					  
+					  //if (sum == 0) { //if the value of sum = 0, print out "0.0" for the space
+						  //System.out.print(" 0.0 ");
+					  //}
+					  //else { //if sum doesn't equal 0, print out the values in the sumrow one by one divided by the value of sum
+					  //System.out.print(" " + sumrow.get(o)/sum + " ");
+					  //}					  
 				  }
 				  
 				  System.out.println(); //println a space
@@ -116,7 +116,7 @@ public class MarkovGenerator<String> extends ProbabilityGenerator<String> {
 	   
 	   ArrayList<String> generate(String initToken, int numberOfTokensToGenerate){ //this calls the method above
 		   
-			ArrayList<String> newSequence = new ArrayList<String>(); //newSequence is a new ArrayList 
+			ArrayList<String> newSequence = new ArrayList(); //newSequence is a new ArrayList 
 			String nextToken = initToken; //nextToken is set to initToken
 			for(int i = 0; i < numberOfTokensToGenerate; i++) { //iterating through whatever the length of the melody called is
 				newSequence.add(nextToken); //add the nextToken variable to newSequence ArrayList
