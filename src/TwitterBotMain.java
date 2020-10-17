@@ -48,11 +48,30 @@ public class TwitterBotMain extends PApplet {
 	}
 
 	public void settings() {
-		size(300, 300); // dummy window
+		size(500, 290); 
 
 	};
 
 	public void setup() {
+		background(45, 187, 245); //background - the twitter blue color
+		fill(255, 255, 255); //fill color of title
+		textSize(25);
+		text("Hunger Games Twitter Bot", 85, 50);
+		
+		textSize(17);
+		fill(240, 95, 36); //fill color for hunger games tweet generation
+		text("Press the key 0 to generate a tweet from ", 80, 90);
+		text("an excerpt of the Hunger Games.", 114, 110);
+
+		fill(255, 255, 255); //fill color of unit test instructions
+		textSize(17);
+		text("Press the key 1, to run Unit Test 1 from Markov Generator", 13, 155);
+		text("Press the key 2, to run Unit Test 2 from Markov Generator", 13, 185);
+		text("Press the key 3, to run Unit Test 3 from Markov Generator", 13, 215);
+		
+		textSize(13);
+		fill(240, 95, 36); //fill color of twitter handle
+		text("twitter.com/DChakkaram", 167, 255);
 		tweet = new TwitterInteraction();
 
 //NOTE: everything starts uncommented. Comment out the calls that you would like to try and use.
@@ -115,16 +134,6 @@ public class TwitterBotMain extends PApplet {
 				tokens.addAll(t);
 
 			}
-			MarkovGenerator<String> hungergamestext = new MarkovGenerator<String>();
-			hungergamestext.train(tokens);
-			// System.out.println(hungergamestext.generate(140));
-			ArrayList<String> sentence = new ArrayList<>(hungergamestext.generate(5));
-			StringBuilder twitterString = new StringBuilder();
-			for (String t : sentence) {
-				twitterString.append(t);
-			}
-			String newTweet = twitterString.toString();
-			tweet.updateTwitter(newTweet);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,32 +166,41 @@ public class TwitterBotMain extends PApplet {
 	}
 
 	public void keyPressed() {
-		if (key == '1') {
-			MarkovGenerator<String> mpitchGenerator = new MarkovGenerator<String>();
+		MarkovGenerator<String> mpitchGenerator = new MarkovGenerator<String>(); //creating MarkovGenerator mPitchGenerator
+		
+		if (key == '0') { //if you press 0
+			MarkovGenerator<String> hungergamestext = new MarkovGenerator<String>(); //creating a new markov generator hungergamestext
+			hungergamestext.train(tokens); //train the new markovgenerator with input tokens based on hunger games excerpt text loaded
 
-			mpitchGenerator.train(tokens);
+			ArrayList<String> sentence = new ArrayList<>(hungergamestext.generate(5)); //fill a new ArrayList of strings, sentence, with the generated tokens from input and with markov generator hungergamestext
+			StringBuilder twitterString = new StringBuilder(); //create a new StringBuilder, twitterString
+			for (String t : sentence) {
+				twitterString.append(t); //append the StringBuilder with sentence ArrayList of strings to the single String, t
+			}
+			String newTweet = twitterString.toString(); //assign String newTweet with twitterString.toString()
+			tweet.updateTwitter(newTweet); //post to twitter with the newTweet String
+			
+		} else if (key == '1') { //if you press key 1 
+			mpitchGenerator.train(tokens); //train the markovGenerator with input tokens from text
 
-			mpitchGenerator.printTransitionTable(); // prints the transitionTable for pitches
+			mpitchGenerator.printTransitionTable(); //print the values trained
 
-		} else if (key == '2') { // pressing the key 5 for unit test 2 in project 2
-			MarkovGenerator<String> mpitchGenerator = new MarkovGenerator<String>();
+		} else if (key == '2') { 
+			mpitchGenerator.train(tokens); //train the markovGenerator with the input tokens from text
 
-			mpitchGenerator.train(tokens);
+			System.out.println(mpitchGenerator.generate(20)); //print the 20 tokens generated
+			
+		} else if (key == '3') { 
+			mpitchGenerator.train(tokens); //train the markovgenerator with input tokens from text
 
-			System.out.println(mpitchGenerator.generate(20));
-		} else if (key == '3') { // pressing the key 6 for unit test 3 in project 2
-			MarkovGenerator<String> mpitchGenerator = new MarkovGenerator<String>();
+			MarkovGenerator<String> markovGenPitches = new MarkovGenerator<String>(); //create a new String markov gen
 
-			mpitchGenerator.train(tokens);
-
-			MarkovGenerator<String> markovGenPitches = new MarkovGenerator<String>();
-
-			for (int i = 0; i <= 10000; i++) {
-				ArrayList<String> newSongPitch = mpitchGenerator.generate(20);
-				markovGenPitches.train(newSongPitch);
+			for (int i = 0; i <= 10000; i++) { //for loop from 1 through 10,000
+				ArrayList<String> newSongPitch = mpitchGenerator.generate(20); //create an ArrayList of strings, filled with generated String tokens
+				markovGenPitches.train(newSongPitch); //train new markov generator with input ArrayList of newSongPitch
 			}
 
-			markovGenPitches.printTransitionTable();
+			markovGenPitches.printTransitionTable(); //print the values based on the trained markovGenPitches
 
 		}
 	}
