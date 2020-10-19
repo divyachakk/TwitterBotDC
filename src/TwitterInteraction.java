@@ -8,21 +8,21 @@ import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 import java.util.*;
 
-
 public class TwitterInteraction {
 
-	Twitter twitter; //holds the twitter API
+	Twitter twitter; // holds the twitter API
 
-    //logs into twitter using OAuth
+	// logs into twitter using OAuth
 	TwitterInteraction() {
 
 		try {
-			//find the keys here: https://developer.twitter.com/en/apps/
+			// find the keys here: https://developer.twitter.com/en/apps/
 			ConfigurationBuilder cb = new ConfigurationBuilder();
-			cb.setDebugEnabled(true).setOAuthConsumerKey("EkKm7N3LwnJQmIEkKybIXkPqi") //API Key here
-					.setOAuthConsumerSecret("UPAJPkf8sL2bk2nf6cklrOOVeY94FnL8FFTn8szSBF4hTz7QLA") //Secret key here
-					.setOAuthAccessToken("1309150208400523266-O8FnKKESkzQhrC2qu4ENl0sv51V2Ps") //access token here
-					.setOAuthAccessTokenSecret("zxrvkLAqHxFfcMzPJfTfPWfWCYAKUjfkQvWocoze4l17L"); //secret access token here
+			cb.setDebugEnabled(true).setOAuthConsumerKey("EkKm7N3LwnJQmIEkKybIXkPqi") // API Key here
+					.setOAuthConsumerSecret("UPAJPkf8sL2bk2nf6cklrOOVeY94FnL8FFTn8szSBF4hTz7QLA") // Secret key here
+					.setOAuthAccessToken("1309150208400523266-O8FnKKESkzQhrC2qu4ENl0sv51V2Ps") // access token here
+					.setOAuthAccessTokenSecret("zxrvkLAqHxFfcMzPJfTfPWfWCYAKUjfkQvWocoze4l17L"); // secret access token
+																									// here
 			TwitterFactory tf = new TwitterFactory(cb.build());
 			twitter = tf.getInstance();
 
@@ -33,7 +33,7 @@ public class TwitterInteraction {
 
 	}
 
-	//updates twitter status with the update_str
+	// updates twitter status with the update_str
 	public void updateTwitter(String update_str) {
 		try {
 
@@ -48,17 +48,17 @@ public class TwitterInteraction {
 		}
 	}
 
-	//returns a list of tweets with the given search term
+	// returns a list of tweets with the given search term
 	public ArrayList<String> searchForTweets(String searchTerm) {
-		ArrayList<String> res = new ArrayList(); 
+		ArrayList<String> res = new ArrayList();
 		try {
 			Query query = new Query(searchTerm);
 			query.count(100);
-			
+
 			QueryResult result = twitter.search(query);
 			for (Status status : result.getTweets()) {
 //				System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
-				res.add(status.getText()); 
+				res.add(status.getText());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -67,7 +67,7 @@ public class TwitterInteraction {
 			e.printStackTrace();
 			System.out.println("Failed to read the system input.");
 		}
-		return res; 
+		return res;
 	}
 
 }

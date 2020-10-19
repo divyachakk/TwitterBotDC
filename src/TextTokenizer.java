@@ -9,40 +9,40 @@ import java.util.*;
 public class TextTokenizer {
 
 	/**
-	  * @param sentence is non-null, but may have no content,
-	  * and represents what the user has input in a search box.
-	  */
-	  public TextTokenizer(String sentence) {
-	    if (sentence == null) {
-	      throw new IllegalArgumentException("Search Text cannot be null.");
-	    } 
-	    fSearchText = sentence;
-	  }
+	 * @param sentence is non-null, but may have no content, and represents what the
+	 *                 user has input in a search box.
+	 */
+	public TextTokenizer(String sentence) {
+		if (sentence == null) {
+			throw new IllegalArgumentException("Search Text cannot be null.");
+		}
+		fSearchText = sentence;
+	}
 
 	/**
 	 * Parse the user's search box input into a Set of String tokens.
 	 *
 	 * @return Set of Strings, one for each word in fSearchText; here "word" is
 	 *         defined as either a lone word surrounded by whitespace, or as a
-	 *         series of words surrounded by double quotes, "like this"; 
-	 *         
-	 *         also the code may be modified so that very
-	 *         common words (and, the, etc.) do not qualify as possible search
-	 *         targets, but this was bah-leted as it is not necessarily useful for training markoov chains
+	 *         series of words surrounded by double quotes, "like this";
+	 * 
+	 *         also the code may be modified so that very common words (and, the,
+	 *         etc.) do not qualify as possible search targets, but this was
+	 *         bah-leted as it is not necessarily useful for training markoov chains
 	 */
 	public ArrayList<String> parseSearchText() {
 		ArrayList<String> result = new ArrayList<>();
 
-		//boolean returnTokens = true;
+		// boolean returnTokens = true;
 		String currentDelims = fWHITESPACE_AND_QUOTES_PUNCTUATION;
-		StringTokenizer parser = new StringTokenizer(fSearchText, ",", false );
+		StringTokenizer parser = new StringTokenizer(fSearchText, ",", false);
 
 		String token = null;
 		while (parser.hasMoreTokens()) {
-			token = parser.nextToken(); //currentDelims
-			if (!isWhitespace(token) && !fWHITESPACE_AND_QUOTES_PUNCTUATION.contains(token) ) {// && !(isHash(token))) {
-				addNonTrivialWordToResult(token, result); //totally misnomer bc this adds ALL words now
-			} 
+			token = parser.nextToken(); // currentDelims
+			if (!isWhitespace(token) && !fWHITESPACE_AND_QUOTES_PUNCTUATION.contains(token)) {// && !(isHash(token))) {
+				addNonTrivialWordToResult(token, result); // totally misnomer bc this adds ALL words now
+			}
 		}
 		return result;
 	}
@@ -55,7 +55,7 @@ public class TextTokenizer {
 	private static final String fWHITESPACE_AND_QUOTES_PUNCTUATION = " \t\r\n\",.!?;:()/\\";
 	private static final String fWHITESPACE = " \t\r\n";
 	private static final String fQUOTES_ONLY = "\"";
-	
+
 	private static final String fHASHES = "#@";
 
 	/** Very common words to be excluded from searches. */
@@ -89,15 +89,14 @@ public class TextTokenizer {
 	}
 
 	private void addNonTrivialWordToResult(String aToken, ArrayList<String> aResult) {
-			aResult.add(aToken.trim());
+		aResult.add(aToken.trim());
 	}
-	
+
 	private boolean isWhitespace(String aToken) {
 		return fWHITESPACE.contains(aToken);
 	}
-	
-	private boolean isHash(String aToken)
-	{
+
+	private boolean isHash(String aToken) {
 		String first = aToken.substring(0, 1);
 		return fHASHES.contains(first);
 	}
