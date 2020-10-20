@@ -1,3 +1,7 @@
+/* Modified by: Divya Chakkaram
+ * Date: October 20, 2020
+ * This class is a template for creating a twitterbot & also demonstrated web-scraping
+ */
 
 import java.io.IOException;
 import java.util.ArrayList;

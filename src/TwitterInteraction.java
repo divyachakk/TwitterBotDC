@@ -1,4 +1,4 @@
-/* Programmer: Divya Chakkaram
+/* Modified by: Divya Chakkaram
  * Date: Oct 20, 2020
  * This class uses the twitter4j library to update a twitter status via code and perform limited searches.
  * Using API & modfied from examples here: http://twitter4j.org/en/

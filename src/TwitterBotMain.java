@@ -1,4 +1,4 @@
-/* Programmer: Divya Chakkaram
+/* Modified and programmed by: Divya Chakkaram
  * Date: October 20, 2020
  * This class is a template for creating a twitterbot & also demonstrated web-scraping
  */
@@ -182,14 +182,14 @@ public class TwitterBotMain extends PApplet {
 			hungergamestext.train(tokens); // train the new markovgenerator with input tokens based on hunger games
 											// excerpt text loaded
 
-			ArrayList<String> sentence = new ArrayList<>(hungergamestext.generate(2)); // fill a new ArrayList of
+			ArrayList<String> sentence = new ArrayList<>(hungergamestext.generate(20)); // fill a new ArrayList of
 																						// strings, sentence, with the
 																						// generated tokens from input
 																						// and with markov generator
 																						// hungergamestext
 			StringBuilder twitterString = new StringBuilder(); // create a new StringBuilder, twitterString
 			for (String t : sentence) {
-				twitterString.append(t); // append the StringBuilder with sentence ArrayList of strings to the single
+				twitterString.append(t + " "); // append the StringBuilder with sentence ArrayList of strings to the single
 											// String, t
 			}
 			String newTweet = twitterString.toString(); // assign String newTweet with twitterString.toString()

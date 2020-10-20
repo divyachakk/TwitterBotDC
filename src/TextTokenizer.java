@@ -1,4 +1,4 @@
-/* Programmer: Divya Chakkaram
+/* Modified by: Divya Chakkaram
  * Date: Oct 20, 2020
  * Desc:  Turns input text into tokens. Removes whitespace, some punctuation, etc. 
  *  The original code was lifted from an online example and then modified. The link got lost in the internet. mea culpa.
@@ -35,7 +35,7 @@ public class TextTokenizer {
 
 		// boolean returnTokens = true;
 		String currentDelims = fWHITESPACE_AND_QUOTES_PUNCTUATION;
-		StringTokenizer parser = new StringTokenizer(fSearchText, ",", false);
+		StringTokenizer parser = new StringTokenizer(fSearchText, fWHITESPACE_AND_QUOTES_PUNCTUATION, false);
 
 		String token = null;
 		while (parser.hasMoreTokens()) {
